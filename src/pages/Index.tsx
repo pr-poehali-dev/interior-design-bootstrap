@@ -4,12 +4,15 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeFilter, setActiveFilter] = useState('Все');
   const [scrollY, setScrollY] = useState(0);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -151,7 +154,7 @@ const Index = () => {
             <a href="#services" className="text-sm hover:text-secondary transition-colors">Услуги</a>
             <a href="#process" className="text-sm hover:text-secondary transition-colors">Процесс</a>
             <a href="#testimonials" className="text-sm hover:text-secondary transition-colors">Отзывы</a>
-            <Button className="bg-gradient-to-r from-primary to-secondary text-white">
+            <Button className="bg-secondary hover:bg-secondary/90 text-primary">
               Связаться
             </Button>
           </div>
@@ -247,7 +250,7 @@ const Index = () => {
                 key={filter}
                 variant={activeFilter === filter ? 'default' : 'outline'}
                 onClick={() => setActiveFilter(filter)}
-                className={activeFilter === filter ? 'bg-gradient-to-r from-primary to-secondary text-white' : ''}
+                className={activeFilter === filter ? 'bg-secondary hover:bg-secondary/90 text-primary' : ''}
               >
                 {filter}
               </Button>
@@ -378,11 +381,56 @@ const Index = () => {
           </div>
 
           <Card className="bg-white/10 backdrop-blur-sm border-white/20 p-8 animate-scale-in">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={async (e) => {
+              e.preventDefault();
+              setIsSubmitting(true);
+              
+              const formData = new FormData(e.currentTarget);
+              const data = {
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                message: formData.get('message')
+              };
+              
+              try {
+                const response = await fetch('https://functions.poehali.dev/7ad19a66-b8ca-4de7-8c99-e1de0b50f0ad', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                  toast({
+                    title: 'Заявка отправлена!',
+                    description: result.message,
+                  });
+                  e.currentTarget.reset();
+                } else {
+                  toast({
+                    title: 'Ошибка',
+                    description: result.error || 'Не удалось отправить заявку',
+                    variant: 'destructive'
+                  });
+                }
+              } catch (error) {
+                toast({
+                  title: 'Ошибка',
+                  description: 'Проблема с подключением. Попробуйте позже.',
+                  variant: 'destructive'
+                });
+              } finally {
+                setIsSubmitting(false);
+              }
+            }}>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium mb-2">Имя</label>
                   <Input 
+                    name="name"
+                    required
                     placeholder="Ваше имя" 
                     className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                   />
@@ -390,6 +438,8 @@ const Index = () => {
                 <div>
                   <label className="block text-sm font-medium mb-2">Телефон</label>
                   <Input 
+                    name="phone"
+                    type="tel"
                     placeholder="+7 (999) 123-45-67" 
                     className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
                   />
@@ -398,6 +448,7 @@ const Index = () => {
               <div>
                 <label className="block text-sm font-medium mb-2">Email</label>
                 <Input 
+                  name="email"
                   type="email"
                   placeholder="your@email.com" 
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
@@ -406,6 +457,7 @@ const Index = () => {
               <div>
                 <label className="block text-sm font-medium mb-2">Расскажите о вашем проекте</label>
                 <Textarea 
+                  name="message"
                   placeholder="Опишите ваши идеи и пожелания..." 
                   rows={5}
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
@@ -414,9 +466,10 @@ const Index = () => {
               <Button 
                 type="submit"
                 size="lg"
+                disabled={isSubmitting}
                 className="w-full bg-secondary text-primary hover:bg-secondary/90 text-lg"
               >
-                Отправить заявку
+                {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
               </Button>
             </form>
           </Card>
