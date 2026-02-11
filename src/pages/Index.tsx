@@ -195,8 +195,8 @@ const Index = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-xl font-bold mb-1">Наталья</h3>
-                  <p className="text-sm text-white/80">Главный дизайнер</p>
+                  <h3 className="text-xl font-bold mb-1">Наталья Тихонова</h3>
+                  <p className="text-sm text-white/80">Архитектор-реставратор | Дизайнер интерьеров | Визуализатор</p>
                 </div>
               </div>
               <div className="relative h-[500px] rounded-2xl overflow-hidden">
@@ -207,8 +207,8 @@ const Index = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-xl font-bold mb-1">Елена</h3>
-                  <p className="text-sm text-white/80">Ведущий дизайнер</p>
+                  <h3 className="text-xl font-bold mb-1">Елена Кадакова</h3>
+                  <p className="text-sm text-white/80">Профессиональный дизайнер-архитектор | Дизайнер интерьеров</p>
                 </div>
               </div>
             </div>
