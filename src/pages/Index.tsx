@@ -12,6 +12,7 @@ const Index = () => {
   const [scrollY, setScrollY] = useState(0);
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -178,10 +179,64 @@ const Index = () => {
               Связаться
             </Button>
           </div>
-          <button className="md:hidden">
-            <Icon name="Menu" size={24} />
+          <button 
+            className="md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <Icon name={mobileMenuOpen ? "X" : "Menu"} size={24} />
           </button>
         </div>
+        
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-b border-gray-100 animate-fade-in">
+            <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
+              <a 
+                href="#about" 
+                className="text-sm hover:text-secondary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                О студии
+              </a>
+              <a 
+                href="#portfolio" 
+                className="text-sm hover:text-secondary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Портфолио
+              </a>
+              <a 
+                href="#services" 
+                className="text-sm hover:text-secondary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Услуги
+              </a>
+              <a 
+                href="#process" 
+                className="text-sm hover:text-secondary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Процесс
+              </a>
+              <a 
+                href="#testimonials" 
+                className="text-sm hover:text-secondary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Отзывы
+              </a>
+              <Button 
+                className="relative overflow-hidden bg-gradient-to-r from-secondary via-purple-300 to-secondary bg-[length:200%_100%] hover:bg-[position:100%_0] active:scale-95 transition-all duration-500 text-primary font-semibold mt-2"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Связаться
+              </Button>
+            </div>
+          </div>
+        )}
       </nav>
 
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
