@@ -120,7 +120,7 @@ const PortfolioSection = ({ projects }: PortfolioSectionProps) => {
                 </div>
                 
                 <Button 
-                  className="w-full bg-gradient-to-r from-primary to-secondary text-white"
+                  className="w-full relative overflow-hidden bg-gradient-to-r from-secondary via-purple-500 to-secondary bg-[length:200%_100%] hover:bg-[position:100%_0] active:scale-95 transition-all duration-500 text-white font-semibold"
                   size="lg"
                 >
                   Заказать похожий проект
