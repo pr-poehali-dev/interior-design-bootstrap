@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import OrderModal from '@/components/OrderModal';
 
 export interface Project {
   id: number;
@@ -22,6 +23,8 @@ interface PortfolioSectionProps {
 const PortfolioSection = ({ projects }: PortfolioSectionProps) => {
   const [activeFilter, setActiveFilter] = useState('Все');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [orderModalOpen, setOrderModalOpen] = useState(false);
+  const [orderProjectTitle, setOrderProjectTitle] = useState<string | undefined>(undefined);
 
   const filters = ['Все', 'Современный', 'Классика', 'Лофт', 'Скандинавский'];
 
@@ -122,6 +125,10 @@ const PortfolioSection = ({ projects }: PortfolioSectionProps) => {
                 <Button 
                   className="w-full relative overflow-hidden bg-gradient-to-r from-secondary via-purple-500 to-secondary bg-[length:200%_100%] hover:bg-[position:100%_0] active:scale-95 transition-all duration-500 text-white font-semibold"
                   size="lg"
+                  onClick={() => {
+                    setOrderProjectTitle(selectedProject.title);
+                    setOrderModalOpen(true);
+                  }}
                 >
                   Заказать похожий проект
                 </Button>
@@ -130,6 +137,11 @@ const PortfolioSection = ({ projects }: PortfolioSectionProps) => {
           )}
         </DialogContent>
       </Dialog>
+      <OrderModal 
+        open={orderModalOpen} 
+        onOpenChange={setOrderModalOpen}
+        projectTitle={orderProjectTitle}
+      />
     </>
   );
 };
