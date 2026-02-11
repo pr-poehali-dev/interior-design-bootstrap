@@ -24,6 +24,9 @@ const HeroSection = ({ scrollY }: HeroSectionProps) => {
         }}
       />
       <div className="relative z-10 text-center text-white px-4 animate-fade-in">
+        <p className="text-lg md:text-xl mb-4 text-secondary font-semibold tracking-wider uppercase">
+          Студия современного дизайна
+        </p>
         <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
           Создаём пространства<br />вашей мечты
         </h1>
