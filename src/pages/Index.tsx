@@ -3,11 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeFilter, setActiveFilter] = useState('Все');
   const [scrollY, setScrollY] = useState(0);
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,42 +25,66 @@ const Index = () => {
       title: 'Современная квартира',
       category: 'Современный',
       image: 'https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/files/b294a8b9-6f80-4f06-91c1-717cd8e8f640.jpg',
-      description: '120 м² элегантности'
+      description: '120 м² элегантности',
+      fullDescription: 'Современная трехкомнатная квартира в центре города. Проект реализован в стиле минимализм с акцентом на функциональность. Использованы натуральные материалы: дерево, камень, текстиль премиум-класса.',
+      area: '120 м²',
+      year: '2023',
+      location: 'Москва'
     },
     {
       id: 2,
       title: 'Скандинавская спальня',
       category: 'Скандинавский',
       image: 'https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/files/584081d5-6b4c-443b-8108-95caac4174a4.jpg',
-      description: 'Минимализм и уют'
+      description: 'Минимализм и уют',
+      fullDescription: 'Спальня в скандинавском стиле с акцентом на естественный свет и природные материалы. Светлая цветовая гамма создаёт атмосферу спокойствия и уюта.',
+      area: '25 м²',
+      year: '2023',
+      location: 'Санкт-Петербург'
     },
     {
       id: 3,
       title: 'Индустриальный лофт',
       category: 'Лофт',
       image: 'https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/files/9db60ed4-71eb-4aa0-96a3-1a19192c920b.jpg',
-      description: 'Сырой шик большого города'
+      description: 'Сырой шик большого города',
+      fullDescription: 'Лофт-пространство с открытой планировкой. Кирпичная кладка, металлические конструкции и винтажная мебель создают уникальную индустриальную атмосферу.',
+      area: '180 м²',
+      year: '2024',
+      location: 'Москва'
     },
     {
       id: 4,
       title: 'Классическая гостиная',
       category: 'Классика',
       image: 'https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/files/b294a8b9-6f80-4f06-91c1-717cd8e8f640.jpg',
-      description: 'Вневременная элегантность'
+      description: 'Вневременная элегантность',
+      fullDescription: 'Гостиная в классическом стиле с элементами ар-деко. Лепнина, хрустальные люстры и антикварная мебель создают атмосферу роскоши и изысканности.',
+      area: '45 м²',
+      year: '2023',
+      location: 'Москва'
     },
     {
       id: 5,
       title: 'Современная кухня',
       category: 'Современный',
       image: 'https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/files/584081d5-6b4c-443b-8108-95caac4174a4.jpg',
-      description: 'Функциональность и стиль'
+      description: 'Функциональность и стиль',
+      fullDescription: 'Кухня-студия с островом и встроенной техникой премиум-класса. Эргономичная планировка и стильный дизайн делают пространство максимально функциональным.',
+      area: '30 м²',
+      year: '2024',
+      location: 'Москва'
     },
     {
       id: 6,
       title: 'Лофт с акцентами',
       category: 'Лофт',
       image: 'https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/files/9db60ed4-71eb-4aa0-96a3-1a19192c920b.jpg',
-      description: 'Смелость в деталях'
+      description: 'Смелость в деталях',
+      fullDescription: 'Студия в стиле лофт с яркими цветовыми акцентами. Открытые коммуникации и кирпичная кладка гармонично сочетаются с современной мебелью.',
+      area: '65 м²',
+      year: '2024',
+      location: 'Санкт-Петербург'
     }
   ];
 
@@ -113,9 +139,12 @@ const Index = () => {
     <div className="min-h-screen bg-white overflow-x-hidden">
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            LUXE
-          </div>
+          <img 
+            src="https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/bucket/cc940387-85a8-48a4-b9e3-1fa9b956675f.png" 
+            alt="LUXE" 
+            className="h-10 brightness-0 saturate-0"
+            style={{ filter: 'brightness(0) saturate(100%) invert(11%) sepia(17%) saturate(1127%) hue-rotate(193deg) brightness(93%) contrast(92%)' }}
+          />
           <div className="hidden md:flex gap-8 items-center">
             <a href="#about" className="text-sm hover:text-secondary transition-colors">О студии</a>
             <a href="#portfolio" className="text-sm hover:text-secondary transition-colors">Портфолио</a>
@@ -231,6 +260,7 @@ const Index = () => {
                 key={project.id} 
                 className="group cursor-pointer overflow-hidden border-none shadow-lg hover:shadow-2xl transition-all duration-500 animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => setSelectedProject(project)}
               >
                 <div className="relative h-80 overflow-hidden">
                   <img 
@@ -414,9 +444,12 @@ const Index = () => {
       <footer className="bg-primary text-white py-12">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-2xl font-bold mb-4 md:mb-0 bg-gradient-to-r from-white to-secondary bg-clip-text text-transparent">
-              LUXE
-            </div>
+            <img 
+              src="https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/bucket/cc940387-85a8-48a4-b9e3-1fa9b956675f.png" 
+              alt="LUXE" 
+              className="h-8"
+              style={{ filter: 'brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)' }}
+            />
             <div className="flex gap-6 mb-4 md:mb-0">
               <a href="#" className="hover:text-secondary transition-colors">
                 <Icon name="Instagram" size={24} />
@@ -434,6 +467,56 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          {selectedProject && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-3xl font-bold mb-2">{selectedProject.title}</DialogTitle>
+                <div className="text-sm text-muted-foreground">{selectedProject.category}</div>
+              </DialogHeader>
+              
+              <div className="space-y-6">
+                <div className="relative h-[400px] rounded-lg overflow-hidden">
+                  <img 
+                    src={selectedProject.image} 
+                    alt={selectedProject.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4 py-4 border-y">
+                  <div>
+                    <div className="text-sm text-muted-foreground mb-1">Площадь</div>
+                    <div className="font-semibold text-lg">{selectedProject.area}</div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground mb-1">Год</div>
+                    <div className="font-semibold text-lg">{selectedProject.year}</div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground mb-1">Локация</div>
+                    <div className="font-semibold text-lg">{selectedProject.location}</div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-xl font-semibold mb-3">О проекте</h3>
+                  <p className="text-muted-foreground leading-relaxed">{selectedProject.fullDescription}</p>
+                </div>
+                
+                <Button 
+                  className="w-full bg-gradient-to-r from-primary to-secondary text-white"
+                  size="lg"
+                >
+                  Заказать похожий проект
+                </Button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
