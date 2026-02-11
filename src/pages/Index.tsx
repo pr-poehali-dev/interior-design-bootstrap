@@ -27,6 +27,14 @@ const Index = () => {
           element.classList.add('animate-in');
         }
       });
+      
+      const parallaxImages = document.querySelectorAll('.parallax-image');
+      parallaxImages.forEach((img) => {
+        const rect = img.getBoundingClientRect();
+        const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+        const translateY = (scrollPercent - 0.5) * 50;
+        (img as HTMLElement).style.transform = `translateY(${translateY}px) scale(1.1)`;
+      });
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -239,7 +247,7 @@ const Index = () => {
               <img 
                 src="https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/files/b294a8b9-6f80-4f06-91c1-717cd8e8f640.jpg"
                 alt="Interior Design"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover parallax-image transition-transform duration-100"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
@@ -281,7 +289,7 @@ const Index = () => {
                   <img 
                     src={project.image} 
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover parallax-image transition-transform duration-100 group-hover:!scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
