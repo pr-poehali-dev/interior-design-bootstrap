@@ -9,14 +9,15 @@ const HeroSection = ({ scrollY }: HeroSectionProps) => {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       <div 
-        className="absolute inset-0 bg-gradient-to-br from-primary via-purple-900 to-secondary"
+        className="absolute inset-0 bg-cover bg-center"
         style={{
+          backgroundImage: 'url(https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/bucket/42a95114-f9ac-4584-b0b6-a811ab49f134.jpg)',
           transform: `translateY(${scrollY * 0.5}px)`,
           transition: 'transform 0.1s ease-out'
         }}
       />
       <div 
-        className="absolute inset-0 bg-black/30"
+        className="absolute inset-0 bg-gradient-to-br from-primary/80 via-purple-900/70 to-secondary/80"
         style={{
           transform: `translateY(${scrollY * 0.3}px)`,
           transition: 'transform 0.1s ease-out'
