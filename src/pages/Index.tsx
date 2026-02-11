@@ -162,22 +162,16 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">О студии</h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                LUXE — это команда профессионалов с 15-летним опытом создания уникальных интерьеров. 
-                Мы превращаем пространства в произведения искусства, сочетая современные тренды с классическими принципами дизайна.
-              </p>
-              <p className="text-lg text-muted-foreground mb-8">
-                Наша философия — создавать не просто красивые интерьеры, а функциональные пространства, 
-                которые отражают индивидуальность каждого клиента.
-              </p>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">О нас</h2>
+              <p className="text-lg text-muted-foreground mb-6">Елена Кадакова — Окончила Горьковский инженерно-строительный институт (ГИСИ) по специальности «Архитектурное проектирование», что заложило прочную основу для работы с объемно-пространственными решениями. Дополнительно прошла обучение в Международной школе дизайна (IDS) по направлению «Дизайн интерьера», а также углубленный курс «Дизайнер-декоратор» в ведущих дизайн-мастерских, что позволило refine художественное восприятие и мастерство в декорировании.</p>
+              <p className="text-lg text-muted-foreground mb-8">Наталья Тихонова — Специалист с разносторонней экспертизой в сфере архитектуры, реставрации и дизайна интерьеров. Окончила ННГАСУ (Нижегородский государственный архитектурно-строительный университет) по направлению «Реставрационное проектирование», где освоила тонкости работы с историческими зданиями, сохранения культурного наследия и адаптации старинных пространств к современным требованиям.</p>
               <div className="grid grid-cols-3 gap-6">
                 <div>
                   <div className="text-4xl font-bold text-secondary mb-2">250+</div>
                   <div className="text-sm text-muted-foreground">Проектов</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold text-secondary mb-2">15</div>
+                  <div className="text-4xl font-bold text-secondary mb-2">15+</div>
                   <div className="text-sm text-muted-foreground">Лет опыта</div>
                 </div>
                 <div>
