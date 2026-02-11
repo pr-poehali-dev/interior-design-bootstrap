@@ -5,10 +5,12 @@ import Navigation from '@/components/sections/Navigation';
 import HeroSection from '@/components/sections/HeroSection';
 import PortfolioSection, { Project } from '@/components/sections/PortfolioSection';
 import ContactSection from '@/components/sections/ContactSection';
+import Preloader from '@/components/Preloader';
 
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -149,7 +151,9 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <>
+      {isLoading && <Preloader onLoadingComplete={() => setIsLoading(false)} />}
+      <div className="min-h-screen bg-white overflow-x-hidden">
       <Navigation mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
       
       <HeroSection scrollY={scrollY} />
@@ -311,6 +315,7 @@ const Index = () => {
         </div>
       </footer>
     </div>
+    </>
   );
 };
 
