@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -8,7 +8,23 @@ import Icon from '@/components/ui/icon';
 
 const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [scrollOffset, setScrollOffset] = useState(0);
   const { toast } = useToast();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = document.getElementById('contact');
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+        setScrollOffset(scrollPercent * 100);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,9 +74,10 @@ const ContactSection = () => {
   return (
     <section id="contact" className="relative py-24 text-white overflow-hidden">
       <div 
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-100"
         style={{
-          backgroundImage: 'url(https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/bucket/765c629e-4a23-4b64-bec1-3f6ede5de41f.jpg)'
+          backgroundImage: 'url(https://cdn.poehali.dev/projects/eed55f17-efb5-4a74-8d9e-55a94c13ec8e/bucket/765c629e-4a23-4b64-bec1-3f6ede5de41f.jpg)',
+          transform: `translateY(${scrollOffset * 0.3}px) scale(1.1)`
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-purple-900/90 to-secondary/90" />
