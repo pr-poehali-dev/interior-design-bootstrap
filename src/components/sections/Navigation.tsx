@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
+import ContactModal from '@/components/ContactModal';
 
 interface NavigationProps {
   mobileMenuOpen: boolean;
@@ -8,7 +9,11 @@ interface NavigationProps {
 }
 
 const Navigation = ({ mobileMenuOpen, setMobileMenuOpen }: NavigationProps) => {
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+  
   return (
+    <>
+    <ContactModal open={contactModalOpen} onOpenChange={setContactModalOpen} />
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <img 
@@ -23,7 +28,10 @@ const Navigation = ({ mobileMenuOpen, setMobileMenuOpen }: NavigationProps) => {
           <a href="#services" className="text-sm hover:text-secondary transition-colors">Услуги</a>
           <a href="#process" className="text-sm hover:text-secondary transition-colors">Процесс</a>
           <a href="#testimonials" className="text-sm hover:text-secondary transition-colors">Отзывы</a>
-          <Button className="relative overflow-hidden bg-gradient-to-r from-secondary via-purple-300 to-secondary bg-[length:200%_100%] hover:bg-[position:100%_0] active:scale-95 transition-all duration-500 text-primary font-semibold">
+          <Button 
+            onClick={() => setContactModalOpen(true)}
+            className="relative overflow-hidden bg-gradient-to-r from-secondary via-purple-300 to-secondary bg-[length:200%_100%] hover:bg-[position:100%_0] active:scale-95 transition-all duration-500 text-primary font-semibold"
+          >
             Связаться
           </Button>
         </div>
@@ -77,7 +85,7 @@ const Navigation = ({ mobileMenuOpen, setMobileMenuOpen }: NavigationProps) => {
               className="relative overflow-hidden bg-gradient-to-r from-secondary via-purple-300 to-secondary bg-[length:200%_100%] hover:bg-[position:100%_0] active:scale-95 transition-all duration-500 text-primary font-semibold mt-2"
               onClick={() => {
                 setMobileMenuOpen(false);
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                setContactModalOpen(true);
               }}
             >
               Связаться
@@ -86,6 +94,7 @@ const Navigation = ({ mobileMenuOpen, setMobileMenuOpen }: NavigationProps) => {
         </div>
       )}
     </nav>
+    </>
   );
 };
 
